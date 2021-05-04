@@ -12,9 +12,8 @@
 using namespace std;
 template<typename ...> struct TD;
 // Solve Q1a (10pts), Q1b (5pts) here:
-
-
-// SEMI-COLON COUNTER : 4
+// LIMITATION! For Q1a and Q1b in total, you can use at most 6 semicolon (;) characters
+// including the struct ending semicolon
 
 template<typename T>
 struct Mat
@@ -34,22 +33,27 @@ struct Mat
     }
 };
 
+// Solve Q1c here (5pts)
+
 template<typename T>
 auto print(const Mat<T>& matrix) -> void
 {
-    for(const auto& row_v: matrix.data)
+    for(const auto& row_vectors: matrix.data)
     {
-        for(const auto& item: row_v)
-            std::cout << item << " ";
+        for(const auto& item: row_vectors)
+        {
+            if constexpr(is_same_v<T, string>) // check later seems to be working fine
+                cout << "\"" << item << "\" ";
+            else
+                cout << item << " ";
+        }
+
         std::cout << std::endl;
     }
     std::cout << std::endl;
 }
 
 
-// LIMITATION! For Q1a and Q1b in total, you can use at most 6 semicolon (;) characters
-// including the struct ending semicolon
-// Solve Q1c here (5pts)
 // Solve Q2 here (15 pts)
 // Solve Q3a (10pts) and Q3b (10pts) here
 // Solve Q4 here (10 pts)
