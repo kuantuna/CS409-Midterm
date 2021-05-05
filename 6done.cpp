@@ -28,12 +28,12 @@ template<template<typename...> typename T, typename ...U, typename First, typena
 { using type = concat_t<tuple<conditional_t<T<First>::value, First, void>>, typename FilterTypes<T<U...>, Rest...>::type>; };
 
 
-template<typename...T>                                                struct InnerFilter;
-template<typename T, template<typename...> typename U, typename ...V> struct InnerFilter<T, U<V...>>
+template<typename...T>                                                struct HelperFilter;
+template<typename T, template<typename...> typename U, typename ...V> struct HelperFilter<T, U<V...>>
 { using type = typename FilterTypes<T, V...>::type; };
 
 
-template<typename T, typename U> using filter_types_t = typename InnerFilter<T,U>::type;
+template<typename T, typename U> using filter_types_t = typename HelperFilter<T,U>::type;
 
 
 int main()
@@ -45,6 +45,7 @@ int main()
     using TUPLE_FLOATING = filter_types_t<is_floating_point<void>, TUPLE>;
     // TUPLE_FLOATING --> tuple<float, double, double, float>
 //     TD< TUPLE_FLOATING > q6b;
+
 
      return 0;
 }
