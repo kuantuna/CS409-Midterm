@@ -3,8 +3,6 @@
 #include <tuple>
 using namespace std;
 
-// WORKS FOR IsIntegral<> but I want to get IsIntegral
-
 template<typename... T> struct TD;
 
 template<typename ... T>                 struct Concat                           { using Type = tuple<T...>; };
@@ -23,13 +21,12 @@ template<>               struct IsIntegral<long>  { static const auto value = tr
 
 
 template<typename ... T> struct FilterTypes;
-template<typename B, typename ... V> struct FilterTypes<B, V...>{
+template<template<typename...> typename A, typename ...B, typename ... V> struct FilterTypes<A<B...>, V...>{
 //    using T1 = tuple<int, double, float>;
 //    using NAH  = concat_t<T1,  tuple<conditional_t<IsIntegral<int>::value, int, void>>>;
 //    using NAH2 = concat_t<NAH, tuple<conditional_t<IsIntegral<float>::value, float, void>>>;
 //    TD<NAH2> ttt{};
 //    using my_v = tuple<V...>;
-//    TD<B> ttt{};
     using Type = int;
 };
 
