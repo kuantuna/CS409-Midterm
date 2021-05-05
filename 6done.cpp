@@ -6,13 +6,13 @@ using namespace std;
 template<typename... T> struct TD;
 
 template<typename ... T>                 struct Concat;
-template<typename ... T, typename ... U> struct Concat<tuple<T...>, tuple<U...>> { using Type = tuple<T..., U...>; };
-template<typename ... T>                 struct Concat<tuple<T...>, void>        { using Type = tuple<T...>; };
-template<typename ... T>                 struct Concat<tuple<T...>, tuple<void>> { using Type = tuple<T...>; }; // bura eklendi
-template<typename ... T>                 struct Concat<void, tuple<T...>>        { using Type = tuple<T...>; };
-template<typename ... T>                 struct Concat<tuple<void>, tuple<T...>> { using Type = tuple<T...>; }; // bura eklendi
-template<>                               struct Concat<tuple<void>, tuple<void>> { using Type = tuple<void>; }; // bura eklendi
-template<typename T, typename U> using concat_t = typename Concat<T, U>::Type;
+template<typename ... T, typename ... U> struct Concat<tuple<T...>, tuple<U...>> { using type = tuple<T..., U...>; };
+template<typename ... T>                 struct Concat<tuple<T...>, void>        { using type = tuple<T...>; };
+template<typename ... T>                 struct Concat<tuple<T...>, tuple<void>> { using type = tuple<T...>; }; // bura eklendi
+template<typename ... T>                 struct Concat<void, tuple<T...>>        { using type = tuple<T...>; };
+template<typename ... T>                 struct Concat<tuple<void>, tuple<T...>> { using type = tuple<T...>; }; // bura eklendi
+template<>                               struct Concat<tuple<void>, tuple<void>> { using type = tuple<void>; }; // bura eklendi
+template<typename T, typename U> using concat_t = typename Concat<T, U>::type;
 
 template<typename ... T> struct IsIntegral        { static const auto value = false; };
 template<>               struct IsIntegral<int>   { static const auto value = true; };
