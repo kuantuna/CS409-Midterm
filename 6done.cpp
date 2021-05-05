@@ -22,18 +22,18 @@ template<>               struct IsIntegral<long>  { static const auto value = tr
 
 
 template<typename ... T>                                                                     struct FilterTypes;
-template<template<typename...> typename A, typename ...B, typename V>                        struct FilterTypes<A<B...>, V>
-{ using Type = tuple<conditional_t<A<V>::value, V, void>>; };
-template<template<typename...> typename A, typename ...B, typename First, typename ... Rest> struct FilterTypes<A<B...>, First, Rest...>
-{ using Type = concat_t<tuple<conditional_t<A<First>::value, First, void>>, typename FilterTypes<A<B...>, Rest...>::Type>; };
+template<template<typename...> typename T, typename ...U, typename V>                        struct FilterTypes<T<U...>, V>
+{ using type = tuple<conditional_t<T<V>::value, V, void>>; };
+template<template<typename...> typename T, typename ...U, typename First, typename ... Rest> struct FilterTypes<T<U...>, First, Rest...>
+{ using type = concat_t<tuple<conditional_t<T<First>::value, First, void>>, typename FilterTypes<T<U...>, Rest...>::type>; };
 
 
 template<typename...T>                                                struct InnerFilter;
 template<typename T, template<typename...> typename U, typename ...V> struct InnerFilter<T, U<V...>>
-{ using Type = typename FilterTypes<T, V...>::Type; };
+{ using type = typename FilterTypes<T, V...>::type; };
 
 
-template<typename T, typename U> using filter_types_t = typename InnerFilter<T,U>::Type;
+template<typename T, typename U> using filter_types_t = typename InnerFilter<T,U>::type;
 
 
 int main()
@@ -41,10 +41,10 @@ int main()
     using TUPLE = tuple<int, float, string, char, short, double, string, double, float>;
     using TUPLE_INTEGRAL = filter_types_t<IsIntegral<>, TUPLE>;
     // TUPLE_INTEGRAL --> tuple<int, char, short>
-     TD< TUPLE_INTEGRAL > q6a;
+//     TD< TUPLE_INTEGRAL > q6a;
     using TUPLE_FLOATING = filter_types_t<is_floating_point<void>, TUPLE>;
     // TUPLE_FLOATING --> tuple<float, double, double, float>
-     TD< TUPLE_FLOATING > q6b;
+//     TD< TUPLE_FLOATING > q6b;
 
      return 0;
 }
