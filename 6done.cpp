@@ -5,7 +5,7 @@ using namespace std;
 
 template<typename... T> struct TD;
 
-template<typename ... T>                 struct Concat                           { using Type = tuple<T...>; };
+template<typename ... T>                 struct Concat;
 template<typename ... T, typename ... U> struct Concat<tuple<T...>, tuple<U...>> { using Type = tuple<T..., U...>; };
 template<typename ... T>                 struct Concat<tuple<T...>, void>        { using Type = tuple<T...>; };
 template<typename ... T>                 struct Concat<tuple<T...>, tuple<void>> { using Type = tuple<T...>; }; // bura eklendi
